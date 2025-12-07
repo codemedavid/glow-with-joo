@@ -15,25 +15,16 @@ const iconMap: { [key: string]: React.ReactElement } = {
   Package: <Package className="w-5 h-5" />,
 };
 
-// Professional gradient colors for peptide categories only
-const categoryColors: { [key: string]: string } = {
-  all: 'from-blue-500 to-blue-700',
-  research: 'from-blue-400 to-blue-600',
-  cosmetic: 'from-indigo-400 to-indigo-600',
-  wellness: 'from-cyan-400 to-cyan-600',
-  supplies: 'from-purple-400 to-purple-600',
-};
-
 const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) => {
   const { categories, loading } = useCategories();
 
   if (loading) {
     return (
-      <div className="bg-white shadow-sm border-b border-gray-100">
+      <div className="bg-white shadow-sm border-b border-gray-100 hidden md:block">
         <div className="container mx-auto px-4 py-4">
           <div className="flex space-x-3 overflow-x-auto">
             {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="animate-pulse bg-gradient-to-r from-gray-200 to-gray-300 h-12 w-36 rounded-xl" />
+              <div key={i} className="animate-pulse bg-gray-100 h-10 w-32 rounded-lg" />
             ))}
           </div>
         </div>
@@ -43,39 +34,36 @@ const SubNav: React.FC<SubNavProps> = ({ selectedCategory, onCategoryClick }) =>
 
   return (
     <nav className="hidden md:block bg-white shadow-sm sticky top-[72px] md:top-[80px] lg:top-[88px] z-40 border-b border-gray-100">
-      <div className="container mx-auto px-3 md:px-4">
-        <div className="flex items-center space-x-2 md:space-x-3 overflow-x-auto py-2 md:py-3 lg:py-4 scrollbar-hide">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center space-x-2 py-4 overflow-x-auto scrollbar-hide">
           {categories.map((category) => {
             const isSelected = selectedCategory === category.id;
-            const gradientColor = categoryColors[category.id] || 'from-gray-400 to-gray-600';
-            
+
             return (
               <button
                 key={category.id}
                 onClick={() => onCategoryClick(category.id)}
                 className={`
-                  flex items-center space-x-1.5 md:space-x-2 px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-lg md:rounded-xl font-medium whitespace-nowrap
-                  transition-all duration-200 flex-shrink-0 transform hover:scale-105 text-xs sm:text-sm md:text-base
-                  ${
-                    isSelected
-                      ? `bg-gradient-to-r ${gradientColor} text-white shadow-lg`
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200 hover:border-gray-300'
+                  flex items-center space-x-2 px-4 py-2 rounded-lg font-medium whitespace-nowrap
+                  transition-all duration-200 text-sm border
+                  ${isSelected
+                    ? 'bg-theme-accent text-white border-theme-accent shadow-sm'
+                    : 'bg-transparent text-gray-600 hover:text-theme-text border-transparent hover:bg-gray-50'
                   }
                 `}
               >
-                <span className={isSelected ? 'text-white' : 'text-gray-600'}>
-                  {iconMap[category.icon] || <Grid className="w-4 h-4 md:w-5 md:h-5" />}
+                <span>
+                  {React.cloneElement(iconMap[category.icon] || <Grid className="w-4 h-4" />, {
+                    className: `w-4 h-4 ${isSelected ? 'text-white' : 'text-gray-400 group-hover:text-theme-text'}`
+                  })}
                 </span>
                 <span>{category.name}</span>
-                {isSelected && (
-                  <span className="ml-0.5 text-[10px] md:text-xs">✨</span>
-                )}
               </button>
             );
           })}
         </div>
       </div>
-      
+
       {/* Hide scrollbar for better aesthetics */}
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {

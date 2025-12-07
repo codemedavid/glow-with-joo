@@ -1,35 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Luxury Black, White, and Gold Theme */
-  --primary-black: #000000; /* Pure black */
-  --primary-black-soft: #171717; /* Soft black */
-  --primary-gray-dark: #262626; /* Dark gray */
-  --primary-gray: #404040; /* Medium gray */
-  --primary-gray-light: #737373; /* Light gray */
+  /* Minimalist Modern Theme */
+  --theme-bg: #F1EFE7;
+  --theme-text: #1E1E1E;
+  --theme-accent: #6DA8A1;
+  --theme-secondary: #C38E70;
   
-  --gold-light: #fbbf24; /* Light gold */
-  --gold: #f59e0b; /* Main gold */
-  --gold-dark: #d97706; /* Rich gold */
-  --gold-darker: #b45309; /* Deep gold */
+  --primary-black: #1E1E1E;
+  --primary-white: #ffffff;
   
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #e5e5e5;
-  --gray-300: #d4d4d4;
-  --gray-600: #525252;
-  --gray-700: #404040;
-  --gray-800: #262626;
-  --gray-900: #171717;
-  
-  --white: #ffffff;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
+  --gray-50: #F1EFE7;
+  --gray-100: #EAE8DE;
+  --gray-200: #DDDBCF;
+  --gray-300: #C0BEB5;
+  --gray-500: #888888;
+  --gray-900: #1E1E1E;
 }
 
 * {
@@ -39,224 +29,109 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--white);
-  color: var(--gray-900);
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  color: var(--gray-900);
+  color: var(--theme-text);
+  letter-spacing: -0.02em;
 }
 
-/* Primary Button Styles - Luxury & Elegant */
+/* Minimalist Button Styles */
 .btn-primary {
-  @apply bg-gradient-to-r from-black to-gray-900 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:from-gray-900 hover:to-black active:scale-95 shadow-lg hover:shadow-xl hover:shadow-gold-glow border border-gold-500/20;
+  @apply bg-theme-accent text-white px-6 py-3 rounded-md font-medium transition-all duration-200 hover:bg-opacity-90 active:scale-95 shadow-sm hover:shadow-md;
 }
 
 .btn-secondary {
-  @apply bg-white text-black border-2 border-black px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-50 hover:border-gold-500 active:scale-95 shadow-md hover:shadow-lg;
+  @apply bg-transparent text-theme-text border border-theme-text px-6 py-3 rounded-md font-medium transition-all duration-200 hover:bg-theme-text hover:text-white active:scale-95;
 }
 
 .btn-outline {
-  @apply bg-transparent text-black border border-gray-300 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-gray-50 hover:border-gold-500 hover:shadow-md;
+  @apply bg-transparent text-theme-text border border-gray-300 px-4 py-2 rounded-md font-medium transition-all duration-200 hover:border-theme-accent hover:text-theme-accent;
 }
 
 .btn-gold {
-  @apply bg-gradient-to-r from-gold-500 to-gold-600 text-black px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:from-gold-600 hover:to-gold-700 active:scale-95 shadow-lg hover:shadow-xl hover:shadow-gold-glow;
+  /* Backward compatibility mapping to accent */
+  @apply bg-theme-secondary text-white px-6 py-3 rounded-md font-medium transition-all duration-200 hover:bg-opacity-90 active:scale-95 shadow-sm;
 }
 
-/* Card Styles - Luxury & Elegant */
+/* Minimalist Card Styles */
 .card {
-  @apply bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-gold-300;
+  @apply bg-white rounded-lg shadow-soft transition-all duration-200 border border-transparent hover:border-gray-200;
 }
 
 .card-hover {
-  @apply transform transition-all duration-300 hover:-translate-y-2 hover:shadow-luxury;
+  @apply transform transition-all duration-300 hover:-translate-y-1 hover:shadow-medium;
 }
 
-/* Badge Styles - Luxury & Elegant */
+/* Badge Styles */
 .badge {
-  @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium shadow-sm;
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
 }
 
 .badge-gold {
-  @apply bg-gradient-to-r from-gold-100 to-gold-200 text-gold-900 border border-gold-300;
+  @apply bg-theme-bg text-theme-secondary border border-theme-secondary;
+}
+
+.badge-accent {
+  @apply bg-theme-accent bg-opacity-10 text-theme-accent border border-theme-accent border-opacity-20;
 }
 
 .badge-black {
-  @apply bg-gradient-to-r from-gray-800 to-black text-white border border-gray-700;
+  @apply bg-theme-text text-white;
 }
 
-.badge-success {
-  @apply bg-green-100 text-green-700;
-}
-
-.badge-warning {
-  @apply bg-yellow-100 text-yellow-700;
-}
-
-.badge-error {
-  @apply bg-red-100 text-red-700;
-}
-
-/* Input Styles - Luxury & Elegant */
+/* Input Styles */
 .input-field {
-  @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-gold-500 transition-all bg-white hover:border-gray-400 shadow-sm focus:shadow-md;
+  @apply w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-theme-accent focus:border-theme-accent transition-all bg-white hover:border-gray-300;
 }
 
 .input-field:disabled {
-  @apply bg-gray-100 cursor-not-allowed;
+  @apply bg-gray-50 cursor-not-allowed opacity-70;
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.animate-fadeIn.animation-delay-300 {
-  animation: fadeIn 0.6s ease-out 0.3s both;
-}
-
-.animate-fadeIn.animation-delay-500 {
-  animation: fadeIn 0.6s ease-out 0.5s both;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .animate-slideIn {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-.animate-pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulseSubtle {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.02);
-  }
-}
-
-.animate-pulse-subtle {
-  animation: pulseSubtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: slideIn 0.4s ease-out;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--gray-100);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gray-400);
-  border-radius: 4px;
+  background: var(--gray-300);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
-}
-
-/* Gradient Backgrounds - Luxury & Elegant */
-.gradient-black {
-  background: linear-gradient(135deg, #000000 0%, #171717 50%, #262626 100%);
-}
-
-.gradient-white {
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 50%, #f5f5f5 100%);
-}
-
-.gradient-gold {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
-}
-
-.gradient-luxury {
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 50%, #f5f5f5 100%);
-}
-
-/* Loading Spinner */
-.spinner {
-  border: 3px solid var(--gray-200);
-  border-top: 3px solid var(--gold);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Text Gradients */
-.text-gradient-gold {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-black {
-  background: linear-gradient(135deg, var(--primary-black) 0%, var(--primary-gray) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Responsive Typography */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  h3 {
-    font-size: 1.25rem;
-  }
+  background: var(--theme-secondary);
 }
 
 /* Utility Classes */
@@ -265,11 +140,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-spacing {
-  @apply py-12 sm:py-16 lg:py-20;
+  @apply py-12 sm:py-16;
 }
 
-/* Focus Visible for Accessibility */
+/* Loading Spinner */
+.spinner {
+  border: 2px solid var(--gray-200);
+  border-top: 2px solid var(--theme-accent);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Text Gradients (Simplified/Removed for minimalism, keeping simple colors) */
+.text-gradient-gold {
+  @apply text-theme-secondary;
+}
+
+.text-gradient-black {
+  @apply text-theme-text;
+}
+
 *:focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--theme-accent);
   outline-offset: 2px;
 }

@@ -7,81 +7,66 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Luxury Black, White, and Gold Theme
+        // Minimalist Modern Theme
+        'theme-bg': '#F1EFE7',      // Cream/Base
+        'theme-text': '#1E1E1E',    // Charcoal/Dark
+        'theme-accent': '#6DA8A1',  // Teal
+        'theme-secondary': '#C38E70', // Terracotta
+
+        // Mapping standard colors to the new theme for compatibility
         primary: {
-          50: '#fafafa',   // Off-white
-          100: '#f5f5f5',  // Light gray
-          200: '#e5e5e5',  // Soft gray
-          300: '#d4d4d4',  // Medium gray
-          400: '#a3a3a3',  // Gray
-          500: '#737373',  // Dark gray
-          600: '#525252',  // Darker gray
-          700: '#404040',  // Very dark gray
-          800: '#262626',  // Almost black
-          900: '#171717',  // Pure black
+          50: '#F1EFE7',
+          100: '#EAE8DE',
+          200: '#DDDBCF',
+          300: '#C38E70', // Using secondary as a mid-tone
+          400: '#9B7460',
+          500: '#1E1E1E', // Using dark as primary
+          600: '#1A1A1A',
+          700: '#151515',
+          800: '#101010',
+          900: '#000000',
         },
+        // Deprecating gold but mapping to secondary/accent to prevent breaks
         gold: {
-          50: '#fffbeb',   // Lightest gold
-          100: '#fef3c7',  // Very light gold
-          200: '#fde68a',  // Light gold
-          300: '#fcd34d',  // Soft gold
-          400: '#fbbf24',  // Medium gold
-          500: '#f59e0b',  // Standard gold
-          600: '#d97706',  // Rich gold
-          700: '#b45309',  // Deep gold
-          800: '#92400e',  // Dark gold
-          900: '#78350f',  // Darkest gold
+          50: '#F1EFE7',
+          100: '#E0F0EE', // Light teal tint
+          200: '#BFE0DC',
+          300: '#9BCEC7',
+          400: '#6DA8A1', // Accent
+          500: '#C38E70', // Secondary
+          600: '#A8795E',
+          700: '#8D644D',
+          800: '#724F3C',
+          900: '#1E1E1E',
         },
         accent: {
-          light: '#fbbf24',   // Light gold accent
-          DEFAULT: '#f59e0b', // Main gold accent
-          dark: '#d97706',    // Rich gold accent
-          white: '#ffffff',   // Pure white
-          black: '#000000',   // Pure black
-        },
-        gray: {
-          50: '#fafafa',
-          100: '#f5f5f5',
-          200: '#e5e5e5',
-          300: '#d4d4d4',
-          400: '#a3a3a3',
-          500: '#737373',
-          600: '#525252',
-          700: '#404040',
-          800: '#262626',
-          900: '#171717',
+          light: '#9BCEC7',
+          DEFAULT: '#6DA8A1',
+          dark: '#588D87',
+          white: '#ffffff',
+          black: '#1E1E1E',
         },
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
-        elegant: ['Playfair Display', 'serif'], // Optional elegant serif font
       },
       boxShadow: {
-        'soft': '0 2px 15px rgba(0, 0, 0, 0.05)',
-        'medium': '0 4px 20px rgba(0, 0, 0, 0.1)',
-        'large': '0 8px 30px rgba(0, 0, 0, 0.15)',
-        'glow': '0 0 20px rgba(245, 158, 11, 0.3)',
-        'luxury': '0 4px 15px rgba(245, 158, 11, 0.2)',
-        'gold-glow': '0 0 30px rgba(245, 158, 11, 0.4)',
+        'soft': '0 2px 10px rgba(0, 0, 0, 0.03)',
+        'medium': '0 4px 15px rgba(0, 0, 0, 0.05)',
+        'hover': '0 8px 25px rgba(0, 0, 0, 0.08)',
       },
       animation: {
-        'fadeIn': 'fadeIn 0.4s ease-out',
-        'slideIn': 'slideIn 0.3s ease-out',
-        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'gold-glow': 'goldGlow 2s ease-in-out infinite',
+        'fadeIn': 'fadeIn 0.5s ease-out',
+        'slideIn': 'slideIn 0.4s ease-out',
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(5px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideIn: {
-          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '0%': { opacity: '0', transform: 'translateX(-10px)' },
           '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        goldGlow: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(245, 158, 11, 0.3)' },
-          '50%': { boxShadow: '0 0 30px rgba(245, 158, 11, 0.6)' },
         },
       },
     },

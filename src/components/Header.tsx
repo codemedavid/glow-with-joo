@@ -20,54 +20,49 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
 
   return (
     <>
-      <header className="bg-white shadow-lg sticky top-0 z-50 border-b border-gold-300/30">
+      <header className="bg-white sticky top-0 z-50 border-b border-gray-100">
         <div className="container mx-auto px-4 md:px-6 py-3 md:py-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo and Brand */}
-            <button 
+            <button
               onClick={() => { onMenuClick(); setMobileMenuOpen(false); }}
-              className="flex items-center space-x-2 md:space-x-3 hover:opacity-90 transition-all group min-w-0 flex-1 max-w-[calc(100%-130px)] sm:max-w-none sm:flex-initial"
+              className="flex items-center space-x-3 hover:opacity-80 transition-all group min-w-0 flex-1 max-w-[calc(100%-130px)] sm:max-w-none sm:flex-initial"
             >
               <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-black to-gray-900 shadow-xl flex items-center justify-center group-hover:shadow-gold-glow transition-all overflow-hidden border-2 border-gold-500/30 ring-1 ring-gold-500/20">
-                  <img 
-                    src="/logo.jpg" 
-                    alt="HP GLOW" 
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-gray-200">
+                  <img
+                    src="/assets/logo.jpg"
+                    alt="HP GLOW"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -top-1 -right-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-full p-1.5 shadow-lg">
-                  <Sparkles className="w-3 h-3 md:w-3.5 md:h-3.5 text-black" />
-                </div>
               </div>
               <div className="text-left min-w-0 flex-1">
-                <h1 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-black leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                <h1 className="text-lg sm:text-xl font-bold text-theme-text leading-tight whitespace-nowrap overflow-hidden text-ellipsis tracking-tight">
                   HP GLOW
                 </h1>
-                <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-gray-600 font-medium flex items-center gap-1">
-                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-gold-600 flex-shrink-0" />
+                <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
                   <span className="whitespace-nowrap overflow-hidden text-ellipsis">
-                    <span className="hidden sm:inline">Premium pep solutions</span>
-                    <span className="sm:hidden">Premium</span>
+                    Premium Peptides
                   </span>
                 </p>
               </div>
             </button>
 
             {/* Right Side Navigation */}
-            <div className="flex items-center gap-2 md:gap-3 ml-auto">
+            <div className="flex items-center gap-2 md:gap-4 ml-auto">
               {/* Desktop Navigation */}
-              <nav className="hidden md:flex items-center gap-2 lg:gap-3">
+              <nav className="hidden md:flex items-center gap-2 lg:gap-4">
                 <button
                   onClick={onMenuClick}
-                  className="px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg transition-all font-medium"
+                  className="text-sm font-medium text-gray-600 hover:text-theme-accent transition-colors"
                 >
                   Products
                 </button>
                 {coaPageEnabled && (
                   <a
                     href="/coa"
-                    className="px-3 py-2 lg:px-4 lg:py-2 text-sm lg:text-base text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg transition-all font-medium"
+                    className="text-sm font-medium text-gray-600 hover:text-theme-accent transition-colors"
                   >
                     Lab Reports
                   </a>
@@ -76,9 +71,9 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                   href={messengerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 lg:gap-2 bg-gradient-to-r from-black to-gray-900 hover:from-gray-900 hover:to-black text-white px-4 py-2 lg:px-5 lg:py-2.5 rounded-lg transition-all font-semibold text-sm lg:text-base shadow-md hover:shadow-gold-glow transform hover:scale-105 border border-gold-500/20"
+                  className="flex items-center gap-2 text-gray-600 hover:text-theme-accent transition-colors text-sm font-medium"
                 >
-                  <MessageCircle className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <MessageCircle className="w-4 h-4" />
                   Messenger
                 </a>
               </nav>
@@ -86,21 +81,20 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               {/* Cart Button */}
               <button
                 onClick={onCartClick}
-                className="relative bg-gradient-to-r from-black to-gray-900 hover:from-gray-900 hover:to-black text-white px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-gold-glow text-sm sm:text-base md:text-lg border border-gold-500/20"
+                className="relative p-2 text-theme-text hover:text-theme-accent transition-colors"
               >
-                <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
-                <span className="hidden sm:inline">Cart</span>
+                <ShoppingCart className="w-6 h-6" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-gradient-to-r from-gold-500 to-gold-600 text-black text-xs md:text-sm font-bold rounded-full w-5 h-5 md:w-7 md:h-7 flex items-center justify-center animate-bounce shadow-lg">
+                  <span className="absolute top-0 right-0 bg-theme-secondary text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                     {cartItemsCount}
                   </span>
                 )}
               </button>
 
               {/* Mobile Menu Button */}
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2.5 hover:bg-gray-100 rounded-xl transition-colors text-gray-700"
+                className="md:hidden p-2 text-theme-text hover:text-theme-accent transition-colors"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? (
@@ -116,74 +110,62 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
 
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
-          <div 
-            className="absolute top-[66px] sm:top-[72px] right-0 left-0 bg-white shadow-2xl rounded-b-lg animate-slideIn border-t border-gold-300/30"
+        <div className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-20 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
+          <div
+            className="absolute top-[65px] right-0 left-0 bg-white shadow-soft animate-slideIn border-b border-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
-            <nav className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-2">
+            <nav className="px-4 py-6">
+              <div className="flex flex-col space-y-4">
                 <button
                   onClick={() => {
                     onMenuClick();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-left px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium text-sm border border-transparent hover:border-gold-300"
+                  className="text-left text-theme-text font-medium text-base hover:text-theme-accent transition-colors"
                 >
-                  🧪 Products
+                  Products
                 </button>
                 {coaPageEnabled && (
                   <a
                     href="/coa"
-                    className="text-left px-4 py-2.5 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium text-sm border border-transparent hover:border-gold-300"
+                    className="text-left text-theme-text font-medium text-base hover:text-theme-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    📋 Lab Reports
+                    Lab Reports
                   </a>
                 )}
-                <div className="flex flex-col gap-2 pt-2 border-t border-gray-200">
+                <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <a
                     href={instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all font-medium text-sm shadow-md"
+                    className="flex items-center gap-3 text-gray-600 hover:text-theme-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Instagram className="w-4 h-4" />
-                    Instagram
+                    <Instagram className="w-5 h-5" />
+                    <span className="text-sm font-medium">Instagram</span>
                   </a>
                   <a
                     href={viberUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-medium text-sm shadow-md"
+                    className="flex items-center gap-3 text-gray-600 hover:text-theme-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Phone className="w-4 h-4" />
-                    Viber
+                    <Phone className="w-5 h-5" />
+                    <span className="text-sm font-medium">Viber</span>
                   </a>
                   <a
                     href={messengerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-black to-gray-900 text-white rounded-lg hover:from-gray-900 hover:to-black transition-all font-semibold text-sm shadow-md border border-gold-500/20"
+                    className="flex items-center gap-3 text-gray-600 hover:text-theme-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    Chat on Messenger
+                    <MessageCircle className="w-5 h-5" />
+                    <span className="text-sm font-medium">Messenger</span>
                   </a>
-                </div>
-                <div className="border-t border-gray-200 pt-2 mt-1">
-                  <button
-                    onClick={() => {
-                      onCartClick();
-                      setMobileMenuOpen(false);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-black to-gray-900 text-white rounded-lg hover:from-gray-900 hover:to-black transition-all font-semibold text-sm shadow-md border border-gold-500/20"
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                    View Cart ({cartItemsCount})
-                  </button>
                 </div>
               </div>
             </nav>
