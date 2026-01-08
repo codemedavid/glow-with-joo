@@ -61,6 +61,16 @@ const Footer: React.FC = () => {
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-teal-400/30 to-transparent mb-6" />
 
+        {/* Locations */}
+        <div className="text-center mb-6">
+          <p className="text-xs text-teal-200/80 font-medium mb-2">📍 Our Locations</p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6">
+            <span className="text-xs text-teal-200/60">Mandaluyong, Metro Manila</span>
+            <span className="hidden md:inline text-teal-200/40">•</span>
+            <span className="text-xs text-teal-200/60">Bajada, Davao City</span>
+          </div>
+        </div>
+
         {/* Footer Bottom */}
         <div className="text-center">
           <p className="text-xs text-teal-200/60 flex items-center justify-center gap-1">
