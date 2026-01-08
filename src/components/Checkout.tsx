@@ -63,8 +63,12 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
     }
   }, [paymentMethods, selectedPaymentMethod]);
 
-  // Calculate shipping fee based on location (uses dynamic fees from database)
-  const shippingFee = shippingLocation ? getShippingFee(shippingLocation) : 0;
+  // Check if cart contains Tirzepatide (free shipping)
+  const hasTirzepatide = cartItems.some(item => item.product.name === 'Tirzepatide');
+
+  // Calculate shipping fee based on location (free if ordering Tirzepatide)
+  const baseShippingFee = shippingLocation ? getShippingFee(shippingLocation) : 0;
+  const shippingFee = hasTirzepatide ? 0 : baseShippingFee;
 
   // Calculate final total (Subtotal + Shipping - Discount)
   const finalTotal = Math.max(0, totalPrice + shippingFee - discountAmount);
@@ -866,8 +870,12 @@ Please confirm this order. Thank you!
 
                   <div className="flex justify-between text-gray-600 text-xs">
                     <span>Shipping</span>
-                    <span className="font-medium text-gold-600">
-                      {shippingLocation ? `₱${shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 0 })}` : 'Select location'}
+                    <span className={`font-medium ${hasTirzepatide ? 'text-green-600' : 'text-gold-600'}`}>
+                      {!shippingLocation
+                        ? 'Select location'
+                        : hasTirzepatide
+                          ? 'FREE (Tirzepatide order)'
+                          : `₱${shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 0 })}`}
                     </span>
                   </div>
                   <div className="border-t-2 border-gray-200 pt-3">
