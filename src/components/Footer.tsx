@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
             <div className="h-12 bg-white rounded p-2">
               <img
                 src="/rs-peptides-logo.png"
-                alt="RS PEPTIDES"
+                alt="RSPEPTIDE"
                 className="h-full w-auto object-contain"
               />
             </div>
@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
           <p className="text-xs text-science-blue-400 flex items-center justify-center gap-1">
             Engineered with
             <Activity className="w-3 h-3 text-bio-green-500" />
-            © {currentYear} RS PEPTIDES.
+            © {currentYear} RSPEPTIDE.
           </p>
           <p className="text-[10px] text-science-blue-500/60 mt-2 uppercase tracking-wide">
             For Research & Educational Reference Only. Not intended for human use.

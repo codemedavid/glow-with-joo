@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
                 {/* For now keeping image container but adding text fallback context mentally */}
                 <img
                   src="/rs-peptides-logo.png"
-                  alt="RS PEPTIDES"
+                  alt="RSPEPTIDE"
                   className="h-full w-auto object-contain"
                 />
               </div>

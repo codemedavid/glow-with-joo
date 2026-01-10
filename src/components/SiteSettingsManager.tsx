@@ -103,7 +103,7 @@ const SiteSettingsManager: React.FC = () => {
         hero_title_suffix: '& Essentials',
         hero_subtext: 'From the Lab to You — Simplifying Science, One Dose at a Time.',
         hero_tagline: 'Quality-tested products. Reliable performance. Trusted by our community.',
-        hero_description: 'RS PEPTIDES provides research-grade peptides engineered for precision, purity, and consistency.',
+        hero_description: 'RSPEPTIDE provides research-grade peptides engineered for precision, purity, and consistency.',
       }));
     }
   };

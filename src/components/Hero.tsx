@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Shield, ChevronRight, Beaker, Dna, Award, Zap } from 'lucide-react';
+import { ArrowRight, Shield, FlaskConical, BadgeCheck, Droplets, Eye, Sparkles } from 'lucide-react';
 import { useCOAPageSetting } from '../hooks/useCOAPageSetting';
 
 interface HeroProps {
@@ -15,138 +15,175 @@ const Hero: React.FC<HeroProps> = ({ onShopAll }) => {
   }, []);
 
   return (
-    <div className="relative min-h-[85vh] sm:min-h-[90vh] overflow-hidden flex items-center bg-white">
-      {/* Subtle Background Design */}
-      <div className="absolute inset-0 z-0">
-        {/* Gradient Orbs */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-clinical-blue/40 via-tech-teal/10 to-transparent rounded-full blur-3xl -translate-y-1/4 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-bio-green/10 via-clinical-blue/20 to-transparent rounded-full blur-3xl translate-y-1/4 -translate-x-1/4" />
+    <div className="relative min-h-[82vh] lg:min-h-[85vh] overflow-hidden bg-gradient-to-br from-white via-clinical-blue/10 to-tech-teal/5">
 
-        {/* Subtle Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(13,59,102,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(13,59,102,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      {/* Animated Gradient Orbs */}
+      <div className="absolute top-[-10%] right-[-5%] w-[350px] h-[350px] sm:w-[500px] sm:h-[500px] bg-gradient-to-br from-tech-teal/20 to-bio-green/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
+      <div className="absolute bottom-[-15%] left-[-10%] w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] bg-gradient-to-tr from-science-blue-200/30 to-tech-teal/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }} />
+      <div className="absolute top-[40%] left-[20%] w-[200px] h-[200px] bg-gradient-to-br from-bio-green/10 to-transparent rounded-full blur-2xl animate-pulse hidden sm:block" style={{ animationDuration: '4s', animationDelay: '2s' }} />
 
-        {/* DNA Helix - Left Side */}
-        <div className="hidden lg:block absolute left-[3%] top-1/2 -translate-y-1/2 w-16 h-[500px] opacity-[0.08]">
-          <svg viewBox="0 0 100 600" className="w-full h-full" preserveAspectRatio="none">
-            {[...Array(12)].map((_, i) => (
-              <g key={i}>
-                <circle cx={50 + Math.sin(i * 0.5) * 30} cy={i * 50 + 25} r="6" fill="#0D3B66" />
-                <circle cx={50 - Math.sin(i * 0.5) * 30} cy={i * 50 + 25} r="6" fill="#1FA6A3" />
-                <line
-                  x1={50 + Math.sin(i * 0.5) * 30} y1={i * 50 + 25}
-                  x2={50 - Math.sin(i * 0.5) * 30} y2={i * 50 + 25}
-                  stroke="#0D3B66" strokeWidth="2" opacity="0.5"
-                />
-              </g>
-            ))}
-          </svg>
-        </div>
-
-        {/* DNA Helix - Right Side */}
-        <div className="hidden lg:block absolute right-[3%] top-1/2 -translate-y-1/2 w-16 h-[500px] opacity-[0.08]">
-          <svg viewBox="0 0 100 600" className="w-full h-full" preserveAspectRatio="none">
-            {[...Array(12)].map((_, i) => (
-              <g key={i}>
-                <circle cx={50 + Math.cos(i * 0.5) * 30} cy={i * 50 + 25} r="6" fill="#1FA6A3" />
-                <circle cx={50 - Math.cos(i * 0.5) * 30} cy={i * 50 + 25} r="6" fill="#6CBF4A" />
-                <line
-                  x1={50 + Math.cos(i * 0.5) * 30} y1={i * 50 + 25}
-                  x2={50 - Math.cos(i * 0.5) * 30} y2={i * 50 + 25}
-                  stroke="#1FA6A3" strokeWidth="2" opacity="0.5"
-                />
-              </g>
-            ))}
-          </svg>
-        </div>
-
-        {/* Decorative Circles */}
-        <div className="absolute top-20 right-[15%] w-64 h-64 border border-science-blue-100 rounded-full opacity-30" />
-        <div className="absolute top-32 right-[12%] w-48 h-48 border border-tech-teal/20 rounded-full opacity-40" />
-        <div className="absolute bottom-20 left-[10%] w-32 h-32 border border-bio-green/20 rounded-full opacity-30" />
+      {/* Floating Particles - Throughout */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full animate-pulse"
+            style={{
+              width: `${4 + Math.random() * 12}px`,
+              height: `${4 + Math.random() * 12}px`,
+              backgroundColor: i % 3 === 0 ? 'rgba(31,166,163,0.4)' : i % 3 === 1 ? 'rgba(108,191,74,0.35)' : 'rgba(13,59,102,0.2)',
+              left: `${5 + Math.random() * 90}%`,
+              top: `${5 + Math.random() * 85}%`,
+              animationDelay: `${Math.random() * 4}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          />
+        ))}
       </div>
 
+      {/* DNA Helix - Animated */}
+      <div className="absolute right-0 top-0 bottom-0 w-full pointer-events-none">
+        <svg
+          className="absolute right-2 sm:right-8 lg:right-16 top-1/2 -translate-y-1/2 h-[55%] sm:h-[65%] lg:h-[75%] w-auto opacity-20 sm:opacity-40 lg:opacity-70 animate-bounce"
+          style={{ animationDuration: '8s', animationTimingFunction: 'ease-in-out' }}
+          viewBox="0 0 150 500"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <defs>
+            <linearGradient id="helixGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#1FA6A3" />
+              <stop offset="50%" stopColor="#0D3B66" />
+              <stop offset="100%" stopColor="#1FA6A3" />
+            </linearGradient>
+            <linearGradient id="helixGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#6CBF4A" />
+              <stop offset="50%" stopColor="#1FA6A3" />
+              <stop offset="100%" stopColor="#6CBF4A" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Strand 1 */}
+          <path
+            d="M75,15 C140,55 10,105 75,145 C140,185 10,235 75,275 C140,315 10,365 75,405 C140,445 10,485 75,485"
+            fill="none"
+            stroke="url(#helixGrad1)"
+            strokeWidth="12"
+            strokeLinecap="round"
+            filter="url(#glow)"
+          />
+
+          {/* Strand 2 */}
+          <path
+            d="M75,15 C10,55 140,105 75,145 C10,185 140,235 75,275 C10,315 140,365 75,405 C10,445 140,485 75,485"
+            fill="none"
+            stroke="url(#helixGrad2)"
+            strokeWidth="12"
+            strokeLinecap="round"
+            filter="url(#glow)"
+          />
+
+          {/* Base Pairs with Glow */}
+          {[...Array(13)].map((_, i) => {
+            const y = 35 + i * 36;
+            const phase = (i * 0.38);
+            const offset = Math.sin(phase) * 50;
+            return (
+              <g key={i}>
+                <line x1={75 + offset} y1={y} x2={75 - offset} y2={y} stroke="rgba(13,59,102,0.2)" strokeWidth="2" strokeDasharray="4 4" />
+                <circle cx={75 + offset} cy={y} r="7" fill="#1FA6A3" filter="url(#glow)" />
+                <circle cx={75 + offset} cy={y} r="3" fill="white" opacity="0.5" />
+                <circle cx={75 - offset} cy={y} r="7" fill="#6CBF4A" filter="url(#glow)" />
+                <circle cx={75 - offset} cy={y} r="3" fill="white" opacity="0.5" />
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+
+      {/* Decorative Rings */}
+      <div className="hidden sm:block absolute top-[15%] right-[20%] w-32 h-32 border-2 border-tech-teal/10 rounded-full" />
+      <div className="hidden sm:block absolute bottom-[25%] left-[8%] w-24 h-24 border-2 border-bio-green/10 rounded-full" />
+      <div className="hidden lg:block absolute top-[30%] left-[15%] w-16 h-16 border border-science-blue-200/30 rounded-full" />
+
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="max-w-4xl mx-auto text-center lg:text-left lg:mx-0">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24 lg:pt-16 lg:pb-32">
+        <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
 
           {/* Badge */}
           <div
-            className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-clinical-blue border border-science-blue-100 mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-tech-teal/20 shadow-lg shadow-tech-teal/5 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
-            <div className="w-2 h-2 bg-bio-green rounded-full animate-pulse" />
-            <span className="text-xs font-bold text-science-blue-800 uppercase tracking-[0.15em]">Research-Grade Peptide Science</span>
-            <Beaker className="w-4 h-4 text-tech-teal" />
+            <Sparkles className="w-4 h-4 text-tech-teal animate-pulse" />
+            <span className="text-xs font-bold text-science-blue-800 uppercase tracking-wider">Lab-Tested Excellence</span>
           </div>
 
           {/* Headline */}
           <h1
-            className={`font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-science-blue-900 tracking-tight leading-[1.05] mb-8 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+            className={`font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-5 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
-            Precision Peptides.
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tech-teal to-bio-green">
-              Pure Science.
-            </span>
+            <span className="text-science-blue-900 block">Research-Grade Peptides.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-tech-teal to-bio-green block mt-1">Precision You Can Trust.</span>
           </h1>
 
           {/* Subheadline */}
           <p
-            className={`text-lg md:text-xl text-gray-600 max-w-2xl mb-10 leading-relaxed font-sans mx-auto lg:mx-0 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+            className={`text-base sm:text-lg text-gray-600 max-w-md mx-auto lg:mx-0 mb-8 leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
-            HPLC-verified, third-party tested peptides for labs, clinicians, and educated researchers.
-            No fluff—just <span className="text-science-blue-900 font-semibold">99%+ purity</span> and uncompromising transparency.
+            Advanced peptide solutions developed with scientific rigor, transparency, and consistent quality standards.
           </p>
 
           {/* CTA Buttons */}
           <div
-            className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-16 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+            className={`flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 mb-10 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
             <button
               onClick={onShopAll}
-              className="w-full sm:w-auto group relative px-8 py-4 bg-science-blue-900 text-white font-bold rounded-lg shadow-lg shadow-science-blue-900/20 hover:shadow-xl hover:bg-science-blue-800 transition-all duration-300 flex items-center justify-center gap-3"
+              className="w-full sm:w-auto group px-8 py-4 bg-gradient-to-r from-tech-teal to-tech-teal/90 text-white font-bold rounded-full shadow-xl shadow-tech-teal/25 hover:shadow-2xl hover:shadow-tech-teal/35 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden"
             >
-              <span>Explore Catalog</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative">Explore Peptides</span>
+              <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
             </button>
 
             {coaPageEnabled && (
               <a
                 href="/coa"
-                className="w-full sm:w-auto px-8 py-4 bg-white text-science-blue-900 font-semibold rounded-lg border-2 border-science-blue-100 hover:border-tech-teal hover:bg-clinical-blue/50 transition-all duration-300 flex items-center justify-center gap-3"
+                className="w-full sm:w-auto px-8 py-4 bg-white text-science-blue-900 font-semibold rounded-full border-2 border-gray-200 hover:border-tech-teal hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <Shield className="w-5 h-5 text-tech-teal" />
-                View Lab Reports
-                <ChevronRight className="w-4 h-4" />
+                <Shield className="w-4 h-4 text-tech-teal" />
+                View Research Standards
               </a>
             )}
           </div>
 
-          {/* Trust Stats Bar */}
-          <div
-            className={`flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-8 lg:gap-12 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-          >
+        </div>
+      </div>
+
+      {/* Trust Bar */}
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-100 py-4 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-10">
             {[
-              { icon: Dna, value: '99%+', label: 'Purity Verified' },
-              { icon: Award, value: '500+', label: 'Orders Shipped' },
-              { icon: Zap, value: '24hr', label: 'Fast Processing' }
-            ].map((stat, idx) => (
-              <div key={idx} className="flex items-center gap-2 sm:gap-3 group">
-                <div className="p-2 sm:p-2.5 rounded-xl bg-clinical-blue border border-science-blue-100 group-hover:border-tech-teal/50 group-hover:bg-tech-teal/10 transition-colors">
-                  <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-tech-teal" />
-                </div>
-                <div>
-                  <p className="text-xl sm:text-2xl font-bold text-science-blue-900">{stat.value}</p>
-                  <p className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">{stat.label}</p>
-                </div>
+              { icon: FlaskConical, label: 'Research Grade' },
+              { icon: BadgeCheck, label: 'Third-Party Tested' },
+              { icon: Droplets, label: 'High Purity' },
+              { icon: Eye, label: 'Transparent' }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-2 text-gray-600">
+                <item.icon className="w-4 h-4 text-tech-teal" />
+                <span className="text-xs sm:text-sm font-medium">{item.label}</span>
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>
