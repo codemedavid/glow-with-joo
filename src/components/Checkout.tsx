@@ -897,8 +897,8 @@ Please confirm this order. Thank you!
                       : 'border-gray-200 hover:border-science-blue-300'
                       }`}
                   >
-                    <p className="font-bold text-science-blue-900 text-sm mb-1">{loc.id.replace('_', ' & ')}</p>
-                    <p className="text-xs text-tech-teal font-medium">{hasTirzepatide ? 'FREE' : '₱150'}</p>
+                    <p className="font-bold text-science-blue-900 text-sm mb-1">{loc.name || loc.id.replace('_', ' & ')}</p>
+                    <p className="text-xs text-tech-teal font-medium">{hasTirzepatide ? 'FREE' : `₱${loc.fee}`}</p>
                   </button>
                 ))}
               </div>

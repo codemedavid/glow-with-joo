@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, Package, CheckCircle, XCircle, Clock, Truck, AlertCircle, Search, RefreshCw, Eye, MessageCircle, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useMenu } from '../hooks/useMenu';
+import { useCouriers } from '../hooks/useCouriers';
 
 interface OrderItem {
   product_id: string;
@@ -535,11 +536,10 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onView, getStatusColor, ge
         <div className="flex flex-col gap-2 md:min-w-[120px]">
           <button
             onClick={onView}
-            className="px-3 md:px-4 py-1.5 md:py-2 bg-navy-900 hover:bg-navy-800 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-1 md:gap-2 shadow-md hover:shadow-lg border border-navy-900/20"
+            className="px-3 md:px-4 py-1.5 md:py-2 bg-science-blue-900 hover:bg-science-blue-800 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-1 md:gap-2 shadow-md hover:shadow-lg"
           >
             <Eye className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="hidden sm:inline">View Details</span>
-            <span className="sm:hidden">View</span>
+            View Details
           </button>
         </div>
       </div>
@@ -565,16 +565,23 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
   onSaveTracking,
   isProcessing
 }) => {
+  const { couriers } = useCouriers();
   const [trackingNumber, setTrackingNumber] = useState(order.tracking_number || '');
-  const [shippingProvider, setShippingProvider] = useState(order.shipping_provider || 'jnt');
+  const [shippingProvider, setShippingProvider] = useState(order.shipping_provider || 'lbc');
   const [shippingNote, setShippingNote] = useState(order.shipping_note || '');
 
   // Update local state when order changes
   useEffect(() => {
     setTrackingNumber(order.tracking_number || '');
-    setShippingProvider(order.shipping_provider || 'jnt');
+    setShippingProvider(order.shipping_provider || 'lbc');
     setShippingNote(order.shipping_note || '');
   }, [order]);
+
+  const selectedCourier = couriers.find(c => c.code === shippingProvider);
+  const trackingUrl = selectedCourier?.tracking_url_template && trackingNumber
+    ? selectedCourier.tracking_url_template.replace('{tracking}', trackingNumber)
+    : null;
+
   const totalItems = order.order_items.reduce((sum, item) => sum + item.quantity, 0);
   const finalTotal = order.total_price + (order.shipping_fee || 0);
 
@@ -676,24 +683,24 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
                     onChange={(e) => setShippingProvider(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black bg-white"
                   >
-                    <option value="lbc">LBC Express</option>
-                    <option value="lalamove">Lalamove</option>
-                    <option value="maxim">Maxim</option>
+                    {couriers.filter(c => c.is_active).map(courier => (
+                      <option key={courier.id} value={courier.code}>{courier.name}</option>
+                    ))}
                   </select>
                   <input
                     type="text"
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
-                    placeholder={shippingProvider === 'lbc' ? "e.g., 123456789012" : "See App for details"}
+                    placeholder={selectedCourier?.tracking_url_template ? "Enter tracking number" : "See App for details"}
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-black"
                   />
-                  {trackingNumber && shippingProvider === 'lbc' && (
+                  {trackingUrl && (
                     <a
-                      href={`https://www.lbcexpress.com/track/?tracking_no=${trackingNumber}`}
+                      href={trackingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 flex items-center justify-center"
-                      title="Test Link"
+                      title="Track Shipment"
                     >
                       <Truck className="w-4 h-4" />
                     </a>
