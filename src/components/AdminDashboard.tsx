@@ -642,6 +642,36 @@ const AdminDashboard: React.FC = () => {
                       <span className="text-theme-accent font-bold">💡</span>
                       <span>Enter each item on a new line. These will be displayed as a checklist on the product detail page. Check "This is a SET product" above to enable this feature.</span>
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        let formatted = inclusionsText;
+
+                        // 1. Split common linear separators
+                        formatted = formatted
+                          .replace(/•/g, '\n')       // Bullets
+                          .replace(/\|\s*/g, '\n')   // Pipes
+                          .replace(/\t/g, '\n')      // Tabs
+                          .replace(/;\s*/g, '\n');   // Semicolons
+
+                        // 2. Intelligence: Add newlines before "Nx " patterns (e.g., 1x, 10x)
+                        // Look for a number followed by 'x' and a space, but ONLY if not at start of line
+                        formatted = formatted.replace(/([^\n])\s+(\d+x\s)/gi, '$1\n$2');
+
+                        // 3. Clean up double newlines
+                        formatted = formatted.replace(/\n\s*\n/g, '\n');
+
+                        setInclusionsText(formatted);
+
+                        // Update form data immediately
+                        const items = formatted.split('\n').filter(item => item.trim() !== '');
+                        setFormData({ ...formData, inclusions: items.length > 0 ? items : null });
+                      }}
+                      className="mt-2 text-xs font-semibold text-science-blue-600 hover:text-science-blue-800 flex items-center gap-1 bg-science-blue-50 px-2 py-1 rounded border border-science-blue-100 transition-colors"
+                    >
+                      <Sparkles className="w-3 h-3" />
+                      Auto-Format List
+                    </button>
                   </div>
                 ) : (
                   <div className="text-center py-4">
@@ -769,7 +799,7 @@ const AdminDashboard: React.FC = () => {
 
             </div>
           </div>
-        </div>
+        </div >
       </>
     );
   }

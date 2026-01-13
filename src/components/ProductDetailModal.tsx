@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Package, Beaker, ShoppingCart, Plus, Minus, Sparkles } from 'lucide-react';
+import { X, Package, Beaker, ShoppingCart, Plus, Minus, Sparkles, ArrowLeft } from 'lucide-react';
 import type { Product, ProductVariation } from '../types';
 
 interface ProductDetailModalProps {
@@ -271,6 +271,15 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                     : (!hasAnyStock || (selectedVariation && selectedVariation.stock_quantity === 0) || (!selectedVariation && product.stock_quantity === 0)
                       ? 'Out of Stock'
                       : 'Add to Cart')}
+                </button>
+
+                {/* Return to Shop Button */}
+                <button
+                  onClick={onClose}
+                  className="w-full mt-3 py-3 text-sm md:text-base font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors flex items-center justify-center gap-2"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Return to Shop
                 </button>
               </div>
 
