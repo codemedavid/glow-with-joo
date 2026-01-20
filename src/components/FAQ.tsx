@@ -37,7 +37,8 @@ const FAQ: React.FC = () => {
         ? faqs.filter(faq => faq.category === activeCategory)
         : faqs;
 
-    const instagramUrl = 'https://ig.me/m/slimmetryph';
+    const viberUrl = 'viber://chat?number=%2B639989747336';
+    const whatsappUrl = 'https://wa.me/639989747336';
 
     if (loading) {
         return (
@@ -148,17 +149,26 @@ const FAQ: React.FC = () => {
                         Still have questions?
                     </h3>
                     <p className="text-black mb-6">
-                        We're here to help! Reach out to us via Instagram for quick assistance.
+                        We're here to help! Reach out to us via Viber or WhatsApp for quick assistance.
                     </p>
-                    <a
-                        href={instagramUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-all shadow-md hover:shadow-lg"
-                    >
-                        <MessageCircle className="w-5 h-5" />
-                        Message us on Instagram
-                    </a>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a
+                            href={viberUrl}
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#7360f2] text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+                        >
+                            <MessageCircle className="w-5 h-5" />
+                            Message us on Viber
+                        </a>
+                        <a
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+                        >
+                            <MessageCircle className="w-5 h-5" />
+                            Message us on WhatsApp
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
