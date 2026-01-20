@@ -542,31 +542,53 @@ Please confirm this order. Thank you!
                                 </h2>
                                 <div className="space-y-3">
                                     {paymentMethods.map((method) => (
-                                        <label
-                                            key={method.id}
-                                            className={`block p-4 rounded border cursor-pointer transition-all ${selectedPaymentMethod === method.id
-                                                ? 'border-blush-500 bg-blush-50/20 ring-1 ring-blush-500'
-                                                : 'border-gray-200 hover:border-blush-300'
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <input
-                                                    type="radio"
-                                                    name="paymentMethod"
-                                                    value={method.id}
-                                                    checked={selectedPaymentMethod === method.id}
-                                                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                                                    className="text-blush-600 focus:ring-blush-500"
-                                                />
-                                                <div className="flex-1">
-                                                    <p className="font-bold text-blush-900">{method.name}</p>
-                                                    <p className="text-sm text-gray-600 font-mono mt-1">{method.account_number}</p>
-                                                    {method.account_name && (
-                                                        <p className="text-xs text-gray-500 mt-0.5">Account Name: {method.account_name}</p>
-                                                    )}
+                                        <div key={method.id}>
+                                            <label
+                                                className={`block p-4 rounded border cursor-pointer transition-all ${selectedPaymentMethod === method.id
+                                                    ? 'border-blush-500 bg-blush-50/20 ring-1 ring-blush-500'
+                                                    : 'border-gray-200 hover:border-blush-300'
+                                                    }`}
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <input
+                                                        type="radio"
+                                                        name="paymentMethod"
+                                                        value={method.id}
+                                                        checked={selectedPaymentMethod === method.id}
+                                                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                                                        className="text-blush-600 focus:ring-blush-500"
+                                                    />
+                                                    <div className="flex-1">
+                                                        <div className="flex justify-between items-start">
+                                                            <div>
+                                                                <p className="font-bold text-blush-900">{method.name}</p>
+                                                                <p className="text-sm text-gray-600 font-mono mt-1">{method.account_number}</p>
+                                                                {method.account_name && (
+                                                                    <p className="text-xs text-gray-500 mt-0.5">Account Name: {method.account_name}</p>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </label>
+                                            </label>
+
+                                            {/* Show QR Code if this method is selected and has a QR code */}
+                                            {selectedPaymentMethod === method.id && method.qr_code_url && (
+                                                <div className="mt-2 ml-8 mb-4 p-4 bg-white border border-gray-100 rounded-lg shadow-sm">
+                                                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 text-center">Scan to Pay</p>
+                                                    <div className="flex justify-center">
+                                                        <img
+                                                            src={method.qr_code_url}
+                                                            alt={`${method.name} QR Code`}
+                                                            className="max-w-[200px] w-full h-auto rounded-lg border border-gray-200"
+                                                        />
+                                                    </div>
+                                                    <p className="text-xs text-center text-gray-400 mt-2">
+                                                        Screenshot your payment and upload it below
+                                                    </p>
+                                                </div>
+                                            )}
+                                        </div>
                                     ))}
                                 </div>
                             </div>
