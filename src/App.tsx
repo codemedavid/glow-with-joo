@@ -19,100 +19,100 @@ import { useMenu } from './hooks/useMenu';
 // import { useCOAPageSetting } from './hooks/useCOAPageSetting';
 
 function MainApp() {
-  const cart = useCart();
-  const { menuItems, refreshProducts } = useMenu();
-  const [currentView, setCurrentView] = React.useState<'menu' | 'cart' | 'checkout'>('menu');
-  const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
+    const cart = useCart();
+    const { menuItems, refreshProducts } = useMenu();
+    const [currentView, setCurrentView] = React.useState<'menu' | 'cart' | 'checkout'>('menu');
+    const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
 
-  const handleViewChange = (view: 'menu' | 'cart' | 'checkout') => {
-    setCurrentView(view);
-    // Scroll to top when changing views
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    const handleViewChange = (view: 'menu' | 'cart' | 'checkout') => {
+        setCurrentView(view);
+        // Scroll to top when changing views
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-  const handleCategoryClick = (categoryId: string) => {
-    setSelectedCategory(categoryId);
-  };
+    const handleCategoryClick = (categoryId: string) => {
+        setSelectedCategory(categoryId);
+    };
 
-  // Filter products based on selected category
-  const filteredProducts = selectedCategory === 'all'
-    ? menuItems
-    : menuItems.filter(item => item.category === selectedCategory);
+    // Filter products based on selected category
+    const filteredProducts = selectedCategory === 'all'
+        ? menuItems
+        : menuItems.filter(item => item.category === selectedCategory);
 
-  return (
-    <div className="min-h-screen bg-white font-inter flex flex-col">
-      <Header
-        cartItemsCount={cart.getTotalItems()}
-        onCartClick={() => handleViewChange('cart')}
-        onMenuClick={() => handleViewChange('menu')}
-      />
+    return (
+        <div className="min-h-screen bg-white font-inter flex flex-col">
+            <Header
+                cartItemsCount={cart.getTotalItems()}
+                onCartClick={() => handleViewChange('cart')}
+                onMenuClick={() => handleViewChange('menu')}
+            />
 
-      {currentView === 'menu' && (
-        <SubNav selectedCategory={selectedCategory} onCategoryClick={handleCategoryClick} />
-      )}
+            {currentView === 'menu' && (
+                <SubNav selectedCategory={selectedCategory} onCategoryClick={handleCategoryClick} />
+            )}
 
-      <main className="flex-grow">
-        {currentView === 'menu' && (
-          <Menu
-            menuItems={filteredProducts}
-            addToCart={cart.addToCart}
-            cartItems={cart.cartItems}
-            updateQuantity={cart.updateQuantity}
-          />
-        )}
+            <main className="flex-grow">
+                {currentView === 'menu' && (
+                    <Menu
+                        menuItems={filteredProducts}
+                        addToCart={cart.addToCart}
+                        cartItems={cart.cartItems}
+                        updateQuantity={cart.updateQuantity}
+                    />
+                )}
 
-        {currentView === 'cart' && (
-          <Cart
-            cartItems={cart.cartItems}
-            updateQuantity={cart.updateQuantity}
-            removeFromCart={cart.removeFromCart}
-            clearCart={cart.clearCart}
-            getTotalPrice={cart.getTotalPrice}
-            onContinueShopping={() => handleViewChange('menu')}
-            onCheckout={() => handleViewChange('checkout')}
-          />
-        )}
+                {currentView === 'cart' && (
+                    <Cart
+                        cartItems={cart.cartItems}
+                        updateQuantity={cart.updateQuantity}
+                        removeFromCart={cart.removeFromCart}
+                        clearCart={cart.clearCart}
+                        getTotalPrice={cart.getTotalPrice}
+                        onContinueShopping={() => handleViewChange('menu')}
+                        onCheckout={() => handleViewChange('checkout')}
+                    />
+                )}
 
-        {currentView === 'checkout' && (
-          <Checkout
-            cartItems={cart.cartItems}
-            totalPrice={cart.getTotalPrice()}
-            onBack={() => handleViewChange('cart')}
-          />
-        )}
-      </main>
+                {currentView === 'checkout' && (
+                    <Checkout
+                        cartItems={cart.cartItems}
+                        totalPrice={cart.getTotalPrice()}
+                        onBack={() => handleViewChange('cart')}
+                    />
+                )}
+            </main>
 
-      {currentView === 'menu' && (
-        <>
-          <FloatingCartButton
-            itemCount={cart.getTotalItems()}
-            onCartClick={() => handleViewChange('cart')}
-          />
-          <Footer />
-        </>
-      )}
-    </div>
-  );
+            {currentView === 'menu' && (
+                <>
+                    <FloatingCartButton
+                        itemCount={cart.getTotalItems()}
+                        onCartClick={() => handleViewChange('cart')}
+                    />
+                    <Footer />
+                </>
+            )}
+        </div>
+    );
 }
 
 
 function App() {
-  //   const { coaPageEnabled } = useCOAPageSetting();
+    //   const { coaPageEnabled } = useCOAPageSetting();
 
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainApp />} />
-        <Route path="/coa" element={<COA />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/calculator" element={<PeptideCalculator />} />
-        <Route path="/track-order" element={<OrderTracking />} />
-        <Route path="/protocols" element={<ProtocolGuide />} />
-        {/* Peptalk routes removed */}
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<MainApp />} />
+                <Route path="/coa" element={<COA />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/calculator" element={<PeptideCalculator />} />
+                <Route path="/track-order" element={<OrderTracking />} />
+                <Route path="/protocols" element={<ProtocolGuide />} />
+                {/* Peptalk routes removed */}
+                <Route path="/admin" element={<AdminDashboard />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

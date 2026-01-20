@@ -42,6 +42,8 @@ interface Order {
   tracking_number: string | null;
   shipping_provider: string | null;
   shipping_note: string | null;
+  promo_code: string | null;
+  discount_applied: number | null;
 }
 
 interface OrdersManagerProps {
@@ -489,7 +491,10 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onView, getStatusColor, ge
   const finalTotal = order.total_price + (order.shipping_fee || 0);
 
   return (
-    <div className="bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg p-3 md:p-4 lg:p-6 border border-navy-700/30 hover:border-navy-900 transition-all text-gray-900">
+    <div
+      onClick={onView}
+      className="bg-white rounded-lg md:rounded-xl shadow-md hover:shadow-lg p-3 md:p-4 lg:p-6 border border-navy-700/30 hover:border-navy-900 transition-all text-gray-900 cursor-pointer hover:bg-gray-50/50"
+    >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 md:gap-3 mb-2 flex-wrap">
@@ -535,7 +540,10 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onView, getStatusColor, ge
 
         <div className="flex flex-col gap-2 md:min-w-[120px]">
           <button
-            onClick={onView}
+            onClick={(e) => {
+              e.stopPropagation();
+              onView();
+            }}
             className="px-3 md:px-4 py-1.5 md:py-2 bg-science-blue-900 hover:bg-science-blue-800 text-white rounded-lg transition-colors font-medium text-xs md:text-sm flex items-center justify-center gap-1 md:gap-2 shadow-md hover:shadow-lg"
           >
             <Eye className="w-3 h-3 md:w-4 md:h-4" />
@@ -796,8 +804,14 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
             <div className="space-y-1.5 md:space-y-2 text-xs md:text-sm">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
-                <span className="font-semibold">₱{order.total_price.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
+                <span className="font-semibold">₱{(order.total_price + (order.discount_applied || 0)).toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
               </div>
+              {order.discount_applied && order.discount_applied > 0 && (
+                <div className="flex justify-between text-green-600">
+                  <span>Discount ({order.promo_code || 'PROMO'}):</span>
+                  <span className="font-semibold">-₱{order.discount_applied.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
+                </div>
+              )}
               {order.shipping_fee && order.shipping_fee > 0 && (
                 <div className="flex justify-between">
                   <span>Shipping Fee:</span>

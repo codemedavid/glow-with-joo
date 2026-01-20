@@ -338,10 +338,6 @@ const CategoryManager: React.FC<CategoryManagerProps> = ({ onBack }) => {
                         <span className="text-[10px] sm:text-xs font-mono text-gray-400">#{category.sort_order}</span>
                       </div>
 
-                      <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center text-xl sm:text-2xl border border-gray-200 overflow-hidden">
-                        <span className="leading-none select-none">{category.icon}</span>
-                      </div>
-
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-3 mb-1.5 sm:mb-2">
                           <h3 className="font-semibold text-gray-900 text-sm sm:text-base leading-tight break-words">

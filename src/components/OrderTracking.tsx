@@ -16,6 +16,8 @@ interface TrackingOrder {
         quantity: number;
     }[];
     created_at: string;
+    promo_code: string | null;
+    discount_applied: number | null;
 }
 
 const OrderTracking: React.FC = () => {
@@ -299,6 +301,12 @@ const OrderTracking: React.FC = () => {
                                                 <span>Total</span>
                                                 <span>₱{(order.total_price + (order.shipping_fee || 0)).toLocaleString()}</span>
                                             </div>
+                                            {order.discount_applied && order.discount_applied > 0 && (
+                                                <div className="flex justify-between items-center pt-2 text-sm text-green-600 font-medium">
+                                                    <span>Discount ({order.promo_code || 'Promo'}):</span>
+                                                    <span>-₱{order.discount_applied.toLocaleString()}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
