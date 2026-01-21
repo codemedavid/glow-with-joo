@@ -225,6 +225,41 @@ BEGIN
   INSERT INTO product_variations (product_id, name, quantity_mg, price, stock_quantity) VALUES
   (pid, '10mg', 10.0, 1900.00, 50);
 
+  -- 19. PEN CARTRIDGE
+  INSERT INTO products (name, description, category, base_price, purity_percentage, stock_quantity, available, featured, image_url)
+  VALUES ('Pen Cartridge (3ml)', 'Steam sterilized empty cartridge for pen injector.', 'supplies', 30.00, 100.0, 50, true, false, '/products/supplies_cartridge.png')
+  RETURNING id INTO pid;
+  
+  INSERT INTO product_variations (product_id, name, quantity_mg, price, stock_quantity) VALUES
+  (pid, '1pc', 1.0, 30.00, 100);
+
+  -- 20. PEN NEEDLES 31G 6MM
+  INSERT INTO products (name, description, category, base_price, purity_percentage, stock_quantity, available, featured, image_url)
+  VALUES ('Pen Needles (31G, 6mm)', 'High-quality pen needles for comfortable injection. 31 Gauge, 6mm length.', 'supplies', 70.00, 100.0, 50, true, false, '/products/supplies_needles_31g_6mm.png')
+  RETURNING id INTO pid;
+  
+  INSERT INTO product_variations (product_id, name, quantity_mg, price, stock_quantity) VALUES
+  (pid, '10pcs', 10.0, 70.00, 100),
+  (pid, '100pcs (Box)', 100.0, 450.00, 50);
+
+  -- 21. PEN NEEDLES 31G 8MM
+  INSERT INTO products (name, description, category, base_price, purity_percentage, stock_quantity, available, featured, image_url)
+  VALUES ('Pen Needles (31G, 8mm)', 'High-quality pen needles. 31 Gauge, 8mm length.', 'supplies', 70.00, 100.0, 50, true, false, '/products/supplies_needles_31g_8mm.png')
+  RETURNING id INTO pid;
+  
+  INSERT INTO product_variations (product_id, name, quantity_mg, price, stock_quantity) VALUES
+  (pid, '10pcs', 10.0, 70.00, 100),
+  (pid, '100pcs (Box)', 100.0, 450.00, 50);
+
+  -- 22. PEN NEEDLES 32G 4MM
+  INSERT INTO products (name, description, category, base_price, purity_percentage, stock_quantity, available, featured, image_url)
+  VALUES ('Pen Needles (32G, 4mm)', 'Ultra-fine pen needles for minimal pain. 32 Gauge, 4mm length.', 'supplies', 70.00, 100.0, 50, true, false, '/products/supplies_needles_32g_4mm.png')
+  RETURNING id INTO pid;
+  
+  INSERT INTO product_variations (product_id, name, quantity_mg, price, stock_quantity) VALUES
+  (pid, '10pcs', 10.0, 70.00, 100),
+  (pid, '100pcs (Box)', 100.0, 450.00, 50);
+
   -- UPDATE AVAILABILITY based on variations
   UPDATE products p
   SET available = EXISTS (
