@@ -16,6 +16,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
     return available || product.variations[0];
   };
 
+  const [imageError, setImageError] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | undefined>(
     getFirstAvailableVariation()
   );
@@ -71,22 +72,26 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
             </div>
           </div>
         </div>
-
         {/* Content */}
         <div className="p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[calc(95vh-180px)] sm:max-h-[calc(90vh-280px)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
             {/* Left Column */}
             <div className="space-y-3 sm:space-y-4 md:space-y-6">
               {/* Product Image */}
-              {product.image_url && (
-                <div className="relative h-40 sm:h-48 md:h-56 lg:h-64 bg-gray-50 rounded overflow-hidden border border-gray-100 shadow-inner">
+              <div className="relative h-40 sm:h-48 md:h-56 lg:h-64 bg-gray-50 rounded overflow-hidden border border-gray-100 shadow-inner">
+                {product.image_url && !imageError ? (
                   <img
                     src={product.image_url}
                     alt={product.name}
                     className="w-full h-full object-cover"
+                    onError={() => setImageError(true)}
                   />
-                </div>
-              )}
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-300 bg-blush-50/50">
+                    <Package className="w-16 h-16 sm:w-20 sm:h-20 opacity-50" />
+                  </div>
+                )}
+              </div>
 
               {/* Description */}
               <div>

@@ -16,6 +16,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
   cartQuantity = 0,
   onProductClick,
 }) => {
+  const [imageError, setImageError] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState<ProductVariation | undefined>(
     product.variations && product.variations.length > 0 ? product.variations[0] : undefined
   );
@@ -73,11 +74,12 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
       {/* Product Image */}
       <div className="relative h-28 sm:h-44 bg-secondary-50 overflow-hidden border-b border-gray-50">
-        {product.image_url ? (
+        {product.image_url && !imageError ? (
           <img
             src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={() => setImageError(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-300 bg-blush-50/50">
