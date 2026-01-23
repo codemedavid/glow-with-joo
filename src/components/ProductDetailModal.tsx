@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { X, Package, Beaker, ShoppingCart, Plus, Minus, Sparkles, ArrowLeft } from 'lucide-react';
-import type { Product, ProductVariation } from '../types';
+import { X, Package, Beaker, ShoppingCart, Plus, Minus, Sparkles, ArrowLeft, Pen } from 'lucide-react';
+import type { Product, ProductVariation, PenType } from '../types';
 
 interface ProductDetailModalProps {
   product: Product;
   onClose: () => void;
-  onAddToCart: (product: Product, variation: ProductVariation | undefined, quantity: number) => void;
+  onAddToCart: (product: Product, variation: ProductVariation | undefined, quantity: number, penType?: PenType) => void;
 }
 
 const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClose, onAddToCart }) => {
@@ -21,9 +21,30 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
     getFirstAvailableVariation()
   );
   const [quantity, setQuantity] = useState(1);
+  const [selectedPenType, setSelectedPenType] = useState<PenType>(null);
+
+  // Check if product is injectable (not supplies category)
+  const isInjectableProduct = product.category !== 'supplies';
 
   const hasDiscount = product.discount_active && product.discount_price;
-  const currentPrice = selectedVariation?.price || (hasDiscount ? product.discount_price! : product.base_price);
+
+  // Calculate price based on selected variation and pen type
+  const calculatePrice = () => {
+    if (!selectedVariation) return product.base_price;
+
+    if (selectedPenType === 'disposable' && selectedVariation.disposable_pen_price) {
+      return selectedVariation.disposable_pen_price;
+    }
+
+    if (selectedPenType === 'reusable' && selectedVariation.reusable_pen_price) {
+      return selectedVariation.reusable_pen_price;
+    }
+
+    // Default to base variation price (Complete Set)
+    return selectedVariation.price;
+  }
+
+  const currentPrice = calculatePrice();
   const showPurity = Boolean(product.purity_percentage);
 
   // Check if product has any available stock
@@ -35,7 +56,7 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
   const decrementQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
 
   const handleAddToCart = () => {
-    onAddToCart(product, selectedVariation, quantity);
+    onAddToCart(product, selectedVariation, quantity, isInjectableProduct ? selectedPenType : null);
     onClose();
   };
 
@@ -223,6 +244,91 @@ const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product, onClos
                     {selectedVariation && selectedVariation.stock_quantity === 0 && (
                       <p className="text-xs text-red-600 mt-1.5 font-semibold">
                         This format is currently unavailable.
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Pen Type Selection - Only for injectable products */}
+                {isInjectableProduct && (
+                  <div className="mb-3 sm:mb-4">
+                    <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-1.5 sm:mb-2 uppercase tracking-wide flex items-center gap-2">
+                      <Pen className="w-4 h-4 text-glow-teal-600" />
+                      Pen Type
+                    </label>
+                    <div className="grid grid-cols-1 gap-2">
+                      {/* Option 1: Complete Set (Default) */}
+                      <button
+                        onClick={() => setSelectedPenType(null)}
+                        className={`
+                          p-3 rounded border text-sm text-left transition-all flex justify-between items-center
+                          ${selectedPenType === null
+                            ? 'border-blush-500 bg-blush-50 text-blush-900 ring-1 ring-blush-500'
+                            : 'border-gray-200 hover:border-blush-300 text-gray-700 bg-white'
+                          }
+                        `}
+                      >
+                        <div>
+                          <div className="font-bold">Complete Set</div>
+                          <div className="text-xs opacity-80">With insulin syringes & alcohol swabs</div>
+                        </div>
+                        <div className="font-bold text-blush-900">
+                          ₱{selectedVariation?.price.toLocaleString('en-PH', { minimumFractionDigits: 0 })}
+                        </div>
+                      </button>
+
+                      {/* Option 2: Disposable Pen */}
+                      <button
+                        onClick={() => setSelectedPenType('disposable')}
+                        disabled={!selectedVariation?.disposable_pen_price}
+                        className={`
+                          p-3 rounded border text-sm text-left transition-all flex justify-between items-center
+                          ${selectedPenType === 'disposable'
+                            ? 'border-blush-500 bg-blush-50 text-blush-900 ring-1 ring-blush-500'
+                            : 'border-gray-200 hover:border-blush-300 text-gray-700 bg-white'
+                          }
+                          ${!selectedVariation?.disposable_pen_price ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}
+                        `}
+                      >
+                        <div>
+                          <div className="font-bold">Disposable Pen</div>
+                          <div className="text-xs opacity-80">Includes 3 needles</div>
+                        </div>
+                        <div className="font-bold text-blush-900">
+                          {selectedVariation?.disposable_pen_price
+                            ? `₱${selectedVariation.disposable_pen_price.toLocaleString('en-PH', { minimumFractionDigits: 0 })}`
+                            : 'N/A'}
+                        </div>
+                      </button>
+
+                      {/* Option 3: Reusable Pen */}
+                      <button
+                        onClick={() => setSelectedPenType('reusable')}
+                        disabled={!selectedVariation?.reusable_pen_price}
+                        className={`
+                          p-3 rounded border text-sm text-left transition-all flex justify-between items-center
+                          ${selectedPenType === 'reusable'
+                            ? 'border-blush-500 bg-blush-50 text-blush-900 ring-1 ring-blush-500'
+                            : 'border-gray-200 hover:border-blush-300 text-gray-700 bg-white'
+                          }
+                          ${!selectedVariation?.reusable_pen_price ? 'opacity-50 cursor-not-allowed bg-gray-50' : ''}
+                        `}
+                      >
+                        <div>
+                          <div className="font-bold">Reusable Pen</div>
+                          <div className="text-xs opacity-80">Includes cartridge & 3 needles</div>
+                        </div>
+                        <div className="font-bold text-blush-900">
+                          {selectedVariation?.reusable_pen_price
+                            ? `₱${selectedVariation.reusable_pen_price.toLocaleString('en-PH', { minimumFractionDigits: 0 })}`
+                            : 'N/A'}
+                        </div>
+                      </button>
+                    </div>
+
+                    {!selectedPenType && (
+                      <p className="text-xs text-gray-500 mt-1.5">
+                        Optional: Select your preferred pen type
                       </p>
                     )}
                   </div>

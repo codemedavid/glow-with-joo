@@ -126,6 +126,11 @@ const Cart: React.FC<CartProps> = ({
                               {item.product.purity_percentage}% Purity
                             </span>
                           )}
+                          {item.penType && (
+                            <span className="text-blush-600 font-medium bg-blush-50 px-2 py-0.5 rounded border border-blush-100">
+                              {item.penType === 'disposable' ? 'Disposable Pen' : 'Reusable Pen'}
+                            </span>
+                          )}
                         </div>
                       </div>
                       <button

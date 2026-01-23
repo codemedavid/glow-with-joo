@@ -213,6 +213,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
                 product_name: item.product.name,
                 variation_id: item.variation?.id || null,
                 variation_name: item.variation?.name || null,
+                pen_type: item.penType || null,
                 quantity: item.quantity,
                 price: item.price,
                 total: item.price * item.quantity,
@@ -318,6 +319,9 @@ ${cartItems.map(item => {
                 let line = `• ${item.product.name}`;
                 if (item.variation) {
                     line += ` (${item.variation.name})`;
+                }
+                if (item.penType) {
+                    line += ` [${item.penType === 'disposable' ? 'Disposable Pen' : 'Reusable Pen'}]`;
                 }
                 line += ` x${item.quantity} - ₱${(item.price * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 0 })}`;
                 if (item.product.purity_percentage && item.product.purity_percentage > 0) {

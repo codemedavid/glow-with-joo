@@ -40,6 +40,9 @@ export interface ProductVariation {
   name: string;
   quantity_mg: number;
   price: number;
+  // Pen type pricing - null means not available for this product
+  disposable_pen_price: number | null;
+  reusable_pen_price: number | null;
   discount_price: number | null;
   discount_active: boolean;
   stock_quantity: number;
@@ -92,12 +95,16 @@ export interface SiteSettings {
   hero_accent_color?: string;
 }
 
+// Pen Type Options (for injectable products)
+export type PenType = 'disposable' | 'reusable' | null;
+
 // Cart Types
 export interface CartItem {
   product: Product;
   variation?: ProductVariation;
   quantity: number;
   price: number;
+  penType?: PenType;
 }
 
 // Order Types

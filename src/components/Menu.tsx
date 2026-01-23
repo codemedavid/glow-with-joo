@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import MenuItemCard from './MenuItemCard';
 import Hero from './Hero';
 import ProductDetailModal from './ProductDetailModal';
-import type { Product, ProductVariation, CartItem } from '../types';
+import type { Product, ProductVariation, CartItem, PenType } from '../types';
 import { Search, Filter, Package } from 'lucide-react';
 
 interface MenuProps {
   menuItems: Product[];
-  addToCart: (product: Product, variation?: ProductVariation, quantity?: number) => void;
+  addToCart: (product: Product, variation?: ProductVariation, quantity?: number, penType?: PenType) => void;
   cartItems: CartItem[];
   updateQuantity: (index: number, quantity: number) => void;
 }
@@ -62,8 +62,8 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems }) => {
         <ProductDetailModal
           product={selectedProduct}
           onClose={() => setSelectedProduct(null)}
-          onAddToCart={(product, variation, quantity) => {
-            addToCart(product, variation, quantity);
+          onAddToCart={(product, variation, quantity, penType) => {
+            addToCart(product, variation, quantity, penType);
           }}
         />
       )}

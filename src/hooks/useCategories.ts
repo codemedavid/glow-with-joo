@@ -28,17 +28,24 @@ export const useCategories = () => {
 
       if (fetchError) throw fetchError;
 
-      const allCategory: Category = {
-        id: 'all',
-        name: 'All Peptides',
-        icon: 'Grid',
-        sort_order: 0,
-        active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      };
+      const hasAllCategory = data?.some(cat => cat.id === 'all');
 
-      setCategories([allCategory, ...(data || [])]);
+      let finalCategories = data || [];
+
+      if (!hasAllCategory) {
+        const allCategory: Category = {
+          id: 'all',
+          name: 'All Peptides',
+          icon: 'Grid',
+          sort_order: 0,
+          active: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        };
+        finalCategories = [allCategory, ...finalCategories];
+      }
+
+      setCategories(finalCategories);
       setError(null);
     } catch (err) {
       console.error('Error fetching categories:', err);
